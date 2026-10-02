@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "esp-pilot": {
+      "type": "http",
+      "url": "https://mcp.esp-pilot.espressif.com/mcp"
+    },
+    "esp-component-registry": {
+      "type": "http",
+      "url": "https://components.espressif.com/mcp"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+[mcp_servers.esp-pilot]
+url = "https://mcp.esp-pilot.espressif.com/mcp"
+
+[mcp_servers.esp-component-registry]
+url = "https://components.espressif.com/mcp"

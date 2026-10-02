@@ -1,0 +1,15 @@
+**/build*/
+**/managed_components/
+**/sdkconfig
+**/sdkconfig.old
+**/.codex-runs/
+**/dependencies.lock
+**/__pycache__/
+**/*.py[cod]
+/.tools/
+/artifacts/
+**/assets/generated/
+/.mosaico-state/
+
+# Local agent experiments; shared skills and tools remain versioned.
+/.agents/analysis/

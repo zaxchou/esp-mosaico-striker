@@ -1,0 +1,20 @@
+dependencies:
+  idf: ">=6.2"
+  georgik/raylib: "==6.0.0~2"
+  espressif/esp-gsp: "==1.5.1"
+  # Required by the engine's shared Raylib asset API, even without game assets.
+  espressif/esp_mmap_assets: "^2.0.0"
+  esp-mosaico-bsp:
+    version: "*"
+    override_path: "../../../submodule/esp-mosaico-bsp/components/esp-mosaico-bsp"
+  mosaico_module_interact:
+    version: "*"
+    override_path: "../../../submodule/esp-mosaico-bsp/components/mosaico_module_interact"
+  esp_lcd_touch_cst9220:
+    version: "0.1.1"
+    override_path: "../components/esp_lcd_touch_cst9220"
+  esp_iris:
+    version: "*"
+    override_path: "../../../submodule/esp-mosaico-utils/ESP-Iris/components/esp_iris"
+  # Match the BSP display adapter's supported LVGL headers.
+  lvgl/lvgl: "==9.5.0"
