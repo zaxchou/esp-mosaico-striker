@@ -30,6 +30,12 @@
 #define CONTROL_TOP 388
 #define LEFT_ZONE (Rectangle){8, CONTROL_TOP, 150, 84}
 #define RIGHT_ZONE (Rectangle){322, CONTROL_TOP, 150, 84}
+#define LEFT_ZONE_CENTER (GAME_WIDTH / 2 - 157)
+#define RIGHT_ZONE_CENTER (GAME_WIDTH / 2 + 157)
+/* Translucent on-screen chevrons over the zones, for devices without the
+ * interaction subboard; drawn beneath bullets so nothing gameplay-relevant
+ * is ever covered. */
+#define HINT_COLOR (Color){190, 215, 255, 80}
 
 typedef enum {
     ENEMY_SCOUT = 0,   /* dives, weaves, aimed singles */
@@ -839,6 +845,18 @@ static void draw_hud(int rot, const struct game_t *game)
     }
 }
 
+/* Translucent steering chevrons centered on the two touch zones. */
+static void draw_steer_hints(int rot)
+{
+    const float cy = CONTROL_TOP + 42;
+    rot_triangle(rot, (Vector2){LEFT_ZONE_CENTER - 16, cy},
+                 (Vector2){LEFT_ZONE_CENTER + 10, cy - 20},
+                 (Vector2){LEFT_ZONE_CENTER + 10, cy + 20}, HINT_COLOR);
+    rot_triangle(rot, (Vector2){RIGHT_ZONE_CENTER + 16, cy},
+                 (Vector2){RIGHT_ZONE_CENTER - 10, cy + 20},
+                 (Vector2){RIGHT_ZONE_CENTER - 10, cy - 20}, HINT_COLOR);
+}
+
 static void draw_leaderboard(int rot, float y)
 {
     rot_text_centered(rot, "BEST TIMES", GAME_WIDTH / 2, y, 20, GOLD);
@@ -874,6 +892,11 @@ bool game_render(game_handle_t game)
         const Vector2 p = rot_point(rot, s->x, s->y);
         DrawPixel((int)p.x, (int)p.y, (Color){shade, shade, shade, 255});
     }
+
+    /* Touch hints sit directly above the starfield and below everything
+     * gameplay-related, so bullets and planes always draw over them. */
+    if (game->state.phase == GAME_PHASE_PLAYING && !game->state.paused)
+        draw_steer_hints(rot);
 
     if (game->state.phase == GAME_PHASE_PLAYING ||
         game->state.phase == GAME_PHASE_GAME_OVER ||
