@@ -64,14 +64,19 @@ python mosaico.py game build --project projects/striker1945  # 设备固件
 python mosaico.py iris system-update --project projects/striker1945  # 安装到设备
 ```
 
-**固件**：`firmware/striker1945.bin`（应用分区镜像，esp32s31）。完整安装（含保留 Recovery 契约）请使用上面的 `iris system-update` 命令。
+**固件**（`firmware/`）：
+
+- `striker1945-system-update.irisfw` —— **ESP-Iris 系统更新包**（赛事方要求的无线烧录格式，含应用镜像与元数据清单，通过 `mosaico.py iris system-update` 或 ESP-Iris Gateway 空中下发安装）。
+- `striker1945.bin` —— 应用分区裸镜像（esp32s31）。
+
+> 自行安装请保持 workspace 布局后执行 `python mosaico.py iris system-update --project projects/striker1945`，它会用源码重新构建并校验 .irisfw，走保留 Recovery 契约的完整安装流程。
 
 ## 目录结构
 
 ```
 projects/striker1945/     游戏源码（main/ 游戏模型+渲染+输入适配, components/ 本地驱动补丁）
 patches/                  BSP 交互子板按键驱动补丁（git apply 方式提供）
-firmware/                 比赛固件 bin
+firmware/                 比赛固件（.irisfw 无线烧录包 + .bin 应用镜像）
 projects/striker1945/screenshots/   游戏截图
 submodule/                上游 BSP / 引擎 / 工具链（pinned gitlinks）
 ```
